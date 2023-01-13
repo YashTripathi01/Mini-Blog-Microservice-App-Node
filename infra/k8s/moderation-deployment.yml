@@ -1,39 +1,39 @@
-# POSTS DEPLOYMENT
+# MODERATION DEPLOYMENT
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: posts-deployment
+    name: moderation-deployment
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: posts
+            app: moderation
     template:
         metadata:
             labels:
-                app: posts
+                app: moderation
         spec:
             containers:
-                - name: posts
-                  image: blogs-posts:latest
+                - name: moderation
+                  image: blogs-moderation:latest
                   imagePullPolicy: Never
                   resources:
                       limits:
                           memory: "64Mi"
                           cpu: "150m"
                   ports:
-                      - containerPort: 3001
+                      - containerPort: 3004
 
 ---
-# POSTS CLUSTER IP SERVICE
+# MODERATION CLUSTER IP SERVICE
 apiVersion: v1
 kind: Service
 metadata:
-    name: posts-clusterip-service
+    name: moderation-clusterip-service
 spec:
     selector:
-        app: posts
+        app: moderation
     ports:
         - protocol: TCP
-          port: 3001
-          targetPort: 3001
+          port: 3004
+          targetPort: 3004

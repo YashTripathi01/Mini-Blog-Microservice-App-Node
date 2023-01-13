@@ -1,39 +1,39 @@
-# POSTS DEPLOYMENT
+# QUERY DEPLOYMENT
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: posts-deployment
+    name: query-deployment
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: posts
+            app: query
     template:
         metadata:
             labels:
-                app: posts
+                app: query
         spec:
             containers:
-                - name: posts
-                  image: blogs-posts:latest
+                - name: query
+                  image: blogs-query:latest
                   imagePullPolicy: Never
                   resources:
                       limits:
                           memory: "64Mi"
                           cpu: "150m"
                   ports:
-                      - containerPort: 3001
+                      - containerPort: 3003
 
 ---
-# POSTS CLUSTER IP SERVICE
+# QUERY CLUSTER IP SERVICE
 apiVersion: v1
 kind: Service
 metadata:
-    name: posts-clusterip-service
+    name: query-clusterip-service
 spec:
     selector:
-        app: posts
+        app: query
     ports:
         - protocol: TCP
-          port: 3001
-          targetPort: 3001
+          port: 3003
+          targetPort: 3003

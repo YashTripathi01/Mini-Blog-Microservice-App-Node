@@ -1,39 +1,39 @@
-# POSTS DEPLOYMENT
+# EVENT BUS DEPLOYMENT
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: posts-deployment
+    name: event-bus-deployment
 spec:
     replicas: 1
     selector:
         matchLabels:
-            app: posts
+            app: event-bus
     template:
         metadata:
             labels:
-                app: posts
+                app: event-bus
         spec:
             containers:
-                - name: posts
-                  image: blogs-posts:latest
+                - name: event-bus
+                  image: blogs-event-bus:latest
                   imagePullPolicy: Never
                   resources:
                       limits:
                           memory: "64Mi"
                           cpu: "150m"
                   ports:
-                      - containerPort: 3001
+                      - containerPort: 3005
 
 ---
-# POSTS CLUSTER IP SERVICE
+# EVENT BUS CLUSTER IP SERVICE
 apiVersion: v1
 kind: Service
 metadata:
-    name: posts-clusterip-service
+    name: event-bus-clusterip-service
 spec:
     selector:
-        app: posts
+        app: event-bus
     ports:
         - protocol: TCP
-          port: 3001
-          targetPort: 3001
+          port: 3005
+          targetPort: 3005

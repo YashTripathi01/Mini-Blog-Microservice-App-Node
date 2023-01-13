@@ -1,0 +1,61 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+    kubectl: {}
+manifests:
+    rawYaml:
+        - "./infra/k8s/*"
+build:
+    local:
+        push: false
+    artifacts:
+        - image: blogs-client:latest
+          context: client
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: "src/**/*.js"
+        - image: blogs-comments:latest
+          context: comments
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: "*.js"
+        - image: blogs-event-bus:latest
+          context: event-bus
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: "*.js"
+        - image: blogs-moderation:latest
+          context: moderation
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: "*.js"
+        - image: blogs-posts:latest
+          context: posts
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: "*.js"
+        - image: blogs-query:latest
+          context: query
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: "*.js"
+# TO START SKAFFOLD
+# skaffold dev

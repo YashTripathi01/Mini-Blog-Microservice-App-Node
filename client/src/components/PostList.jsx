@@ -10,7 +10,7 @@ const PostList = (props) => {
 
     const fetchPosts = async (e) => {
         // const response = await axios.get('http://127.0.0.1:3001/posts');
-        const response = await axios.get("http://127.0.0.1:3003/posts"); //using query service
+        const response = await axios.get("http://posts.com/posts"); //using query service
 
         setPosts(response.data);
         setRender(!render);
